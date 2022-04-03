@@ -1,31 +1,31 @@
 CREATE TABLE public.albums (
-	id serial4 NOT NULL,
-	namealbums varchar NOT NULL,
-	releaseyear int4 NOT NULL,
-	idartists int4 NOT NULL,
+	id serial NOT NULL,
+	namealbums varchar(40) NOT NULL,
+	releaseyear int NOT NULL,
+	idartists int NOT NULL,
 	CONSTRAINT albums_pk PRIMARY KEY (id),
-	CONSTRAINT albums_id_fkey FOREIGN KEY (id) REFERENCES public.artist(id)
+	CONSTRAINT albums_id_fkey FOREIGN KEY (idartists) REFERENCES public.artist(id)
 );
 
 CREATE TABLE public.artist (
-	id serial4 NOT NULL,
-	nameartists varchar NULL,
-	artists_genres varchar NULL,
-	CONSTRAINT artist_pk PRIMARY KEY (id)
+	id serial NOT NULL,
+	nameartists varchar(40) NOT NULL,
+	artists_genres int NOT NULL,
+	CONSTRAINT artist_pk PRIMARY KEY (id),
+	CONSTRAINT artist_id_fkey FOREIGN KEY (artists_genres) REFERENCES public.genres(id)
 );
 
 CREATE TABLE public.genres (
-	id serial4 NOT NULL,
-	namegenres varchar NULL,
-	CONSTRAINT genres_pk PRIMARY KEY (id),
-	CONSTRAINT genres_id_fkey FOREIGN KEY (id) REFERENCES public.artist(id)
+	id serial NOT NULL,
+	namegenres varchar(40) NOT NULLL,
+	CONSTRAINT genres_pk PRIMARY KEY (id)
 );
 
 CREATE TABLE public.tracks (
-	id serial4 NOT NULL,
-	nametracks varchar NOT NULL,
+	id serial NOT NULL,
+	nametracks varchar(40) NOT NULL,
 	duration time NOT NULL,
-	idalbums int4 NOT NULL,
+	idalbums int NOT NULL,
 	CONSTRAINT tracks_pk PRIMARY KEY (id),
-	CONSTRAINT tracks_id_fkey FOREIGN KEY (id) REFERENCES public.albums(id)
+	CONSTRAINT tracks_id_fkey FOREIGN KEY (idalbums) REFERENCES public.albums(id)
 );
