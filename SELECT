@@ -1,0 +1,17 @@
+select namealbums, releaseyearalbums from albums
+	where releaseyearalbums = 2018;
+	
+select nametracks, greatest(duration) from tracks limit 1;
+
+select nametracks from tracks 
+	where duration between '00:03:30' and '00:59:00';
+	
+SELECT namemixtapes from mixtapes
+	where releaseyearmixtapes between '2018' and '2020';
+--Р° РёС… Рё РЅРµС‚Сѓ
+
+select nameartists from artist 
+	where nameartists like '% %';
+	
+select nametracks from tracks
+	where nametracks like '%РјРѕР№%' or nametracks like '%my%';
