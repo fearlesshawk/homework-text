@@ -8,7 +8,6 @@ create table if not exists albums (
 create table if not exists artist (
 	id serial NOT NULL,
 	nameartists varchar(40) NOT NULL,
-	artistsgenre int NOT NULL,
 	CONSTRAINT artist_pk PRIMARY KEY (id)
 );
 
