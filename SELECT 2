@@ -4,7 +4,7 @@ from genres
 	left join artistsgenres as ag on genres.id = ag.genres_id
 	left join artist as a on ag.artists_id = a.id
 	group by namegenres
-	order by count(nameartists)
+	order by count(nameartists);
 
 --количество треков, вошедших в альбомы 2019-2020 годов;
 select count(nametracks), releaseyearalbums
@@ -12,7 +12,7 @@ from albums as a
 	left join tracks on idalbums = a.id
 	where (releaseyearalbums >= 2019) and (releaseyearalbums <= 2020)
 	group by releaseyearalbums
-	order by count(nametracks)
+	order by count(nametracks);
 --упс альбомов таких и нету
 	
 --средняя продолжительность треков по каждому альбому;
@@ -20,7 +20,7 @@ select namealbums, AVG(duration)
 from albums as a
 	left join tracks on idalbums = a.id
 	group by namealbums
-	order by AVG(duration)
+	order by AVG(duration);
 
 -- все исполнители, которые не выпустили альбомы в 2020 году;
 select distinct nameartists
@@ -32,7 +32,7 @@ where nameartists not in (
     left join albums as a on a.id = aa.albums_id
     where releaseyearalbums = 2020
 )
-order by nameartists
+order by nameartists;
 
 --названия сборников, в которых присутствует конкретный исполнитель;
 select distinct namemixtapes
@@ -43,7 +43,7 @@ from mixtapes as m
 	left join artistsalbums as aa on aa.albums_id = a.id
 	left join artist as art on art.id = aa.artists_id
 where art.nameartists like '%%ATEEZ%%'
-order by namemixtapes
+order by namemixtapes;
 
 	
 -- название альбомов, в которых присутствуют исполнители более 1 жанра;	
@@ -55,13 +55,13 @@ from albums as a
 	left join genres as g on g.id = ag.genres_id
 group by namealbums
 having count(distinct namegenres) > 1
-order by namealbums
+order by namealbums;
 
 -- наименование треков, которые не входят в сборники;
 select nametracks
 from tracks as t
 left join mixtapestracks as mt on t.id = mt.tracks_id
-where mt.tracks_id is null
+where mt.tracks_id is null;
 
 -- исполнителя(-ей), написавшего самый короткий по продолжительности трек;
 select nameartists, duration
@@ -71,7 +71,7 @@ left join artistsalbums as aa on aa.albums_id = a.id
 left join artist as art on art.id = aa.artists_id
 group by nameartists, duration
 having duration = (select min(duration) from tracks)
-order by nameartists
+order by nameartists;
 
 -- название альбомов, содержащих наименьшее количество треков.
 select distinct namealbums
@@ -87,4 +87,4 @@ where t.idalbums in (
         group by idalbums
         order by count
         limit 1))
-order by namealbums
+order by namealbums;
